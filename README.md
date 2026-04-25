@@ -1,81 +1,76 @@
-# Data-Science-Codealpha-Internship-Task
-Data Science Codealpha Internship Task
-# Step 1: Import necessary libraries
-import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
-import plotly.express as px
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-from sklearn.model_selection import GridSearchCV
+# Data Science Codealpha Internship Task
 
-# Step 2: Load the Iris dataset
-# If you have a CSV file, change the path accordingly
-iris = pd.read_csv("IRIS.csv")
+## 📖 Overview
+Iris flower classification using K-Nearest Neighbors (KNN) algorithm. This project demonstrates end-to-end machine learning workflow including data exploration, visualization, model training, and hyperparameter tuning.
 
-# Step 3: Explore the dataset
-print("First 5 rows of the dataset:")
-print(iris.head())
+## 🎯 Project Objectives
+- Load and explore the Iris dataset
+- Visualize relationships between features
+- Build and train a KNN classifier
+- Evaluate model performance
+- Optimize hyperparameters using GridSearchCV
 
-# Descriptive statistics
-print("\nDescriptive statistics:")
-print(iris.describe())
+## 📊 Dataset
+- **Source**: Iris dataset (IRIS.csv)
+- **Features**: Sepal length, Sepal width, Petal length, Petal width
+- **Target**: Iris species (3 classes)
+- **Samples**: 150 records
 
-# Unique target labels (species)
-print("\nTarget Labels:", iris["species"].unique())
+## 🛠️ Technologies Used
+- **Python 3.x**
+- pandas - Data manipulation
+- scikit-learn - Machine learning
+- matplotlib & plotly - Data visualization
+- numpy - Numerical computing
 
-# Step 4: Visualize the data
-# Scatter plot to visualize the relationship between sepal width and sepal length
-fig = px.scatter(iris, x="sepal_width", y="sepal_length", color="species")
-fig.show()
+## 📦 Installation & Setup
 
-# Step 5: Prepare data for model training
-# Separate features (X) and target labels (y)
-X = iris.drop("species", axis=1)  # Features
-y = iris["species"]  # Target labels
+### Prerequisites
+```bash
+pip install -r requirements.txt
+```
 
-# Split data into training and test sets (80% train, 20% test)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+### Usage
+1. Ensure `IRIS.csv` is in the project directory
+2. Run the script:
+```bash
+python main.py
+```
 
-# Step 6: Train the KNN classifier
-# Initialize KNN with k=3
-knn = KNeighborsClassifier(n_neighbors=3)
+## 🔄 Workflow Steps
 
-# Fit the model on the training data
-knn.fit(X_train, y_train)
+1. **Data Loading**: Import Iris dataset from CSV
+2. **Exploratory Analysis**: View statistics and unique labels
+3. **Visualization**: Scatter plots to identify patterns
+4. **Data Preparation**: Split features and target (80/20 train-test)
+5. **Model Training**: Train KNN classifier (k=3)
+6. **Evaluation**: Accuracy, confusion matrix, classification report
+7. **Hyperparameter Tuning**: GridSearchCV for optimal k value
+8. **Prediction**: Make predictions on new samples
 
-# Step 7: Make predictions on the test set
-y_pred = knn.predict(X_test)
+## 📈 Results & Performance Metrics
+- **Accuracy Score**: Run `main.py` to see results
+- **Confusion Matrix**: Generated in output
+- **Best k value**: Determined by GridSearchCV
 
-# Step 8: Evaluate the model
-# Accuracy score
-accuracy = accuracy_score(y_test, y_pred)
-print(f"\nAccuracy: {accuracy * 100:.2f}%")
+## 📝 Project Structure
+```
+├── README.md
+├── requirements.txt
+├── .gitignore
+├── main.py
+└── IRIS.csv
+```
 
-# Confusion matrix
-print("\nConfusion Matrix:")
-print(confusion_matrix(y_test, y_pred))
+## 🚀 Future Improvements
+- Try other algorithms (SVM, Random Forest, Neural Networks)
+- Cross-validation and k-fold analysis
+- Feature scaling/normalization
+- ROC curve and AUC analysis
+- Deploy model as API
 
-# Classification report (precision, recall, f1-score)
-print("\nClassification Report:")
-print(classification_report(y_test, y_pred))
+## 👤 Author
+Faheem Akbar
 
-# Step 9: Hyperparameter Tuning (Optional)
-# If you want to experiment with different values of k, use GridSearchCV
-param_grid = {'n_neighbors': [1, 3, 5, 7, 9, 11]}
-grid_search = GridSearchCV(KNeighborsClassifier(), param_grid, cv=5)
-grid_search.fit(X_train, y_train)
-
-# Display the best value of k (number of neighbors)
-print("\nBest number of neighbors (k) from GridSearchCV:", grid_search.best_params_["n_neighbors"])
-
-# Step 10: Make a new prediction with the best model (optional)
-# Example new measurement: [sepal_length, sepal_width, petal_length, petal_width]
-x_new = np.array([[5.1, 3.5, 1.4, 0.2]])
-
-# Use the best model to predict the class
-best_knn = grid_search.best_estimator_
-prediction = best_knn.predict(x_new)
-
-print("\nPrediction for new sample (5.1, 3.5, 1.4, 0.2):", prediction)
+## 📄 License
+MIT License - See LICENSE file for details
